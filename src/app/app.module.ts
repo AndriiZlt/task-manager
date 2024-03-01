@@ -10,8 +10,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TaskComponent } from './task/task.component';
-import { TaskViewComponent } from './pages/task-view/task-view.component';
+import { HomeViewComponent } from './pages/home-view/home-view.component';
 import { RouterModule } from '@angular/router';
+import { FilterTasksformPipe } from './pipes/filer-tasks.pipe';
+import { TaskViewComponent } from './pages/task-view/task-view.component';
 
 @NgModule({
   imports: [
@@ -26,7 +28,13 @@ import { RouterModule } from '@angular/router';
     RouterModule,
   ],
   entryComponents: [AppComponent],
-  declarations: [AppComponent, TaskComponent, TaskViewComponent],
+  declarations: [
+    AppComponent,
+    TaskComponent,
+    HomeViewComponent,
+    FilterTasksformPipe,
+    TaskViewComponent,
+  ],
   bootstrap: [AppComponent],
   providers: [
     {

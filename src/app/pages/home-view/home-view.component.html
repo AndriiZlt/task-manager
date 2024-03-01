@@ -1,0 +1,38 @@
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block"
+  rel="stylesheet"
+/>
+
+<div class="mat-app-background basic-container">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>New task..</mat-label>
+      <input
+        class="message"
+        matInput
+        #message
+        maxlength="256"
+        [(ngModel)]="inputValue"
+        [ngModelOptions]="{ standalone: true }"
+      />
+
+      <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
+    </mat-form-field>
+    <button (click)="addTask()" class="add-btn">Add task</button>
+
+    <button (click)="clearInput()" class="add-btn">Clear</button>
+    <button (click)="onFilterClick()" class="add-btn">
+      {{ filter ? "Show All" : "Show ongoing" }}
+    </button>
+  </form>
+  <p>{{ filter ? "Filtered tasks" : "All tasks" }}</p>
+</div>
+<div class="tasks">
+  <app-task
+    *ngFor="let task of tasks | filter : filter; let index = id"
+    [task]="task"
+    [taskIndex]="tasks.indexOf(task)"
+    (onTaskDelete)="onTaskDelete($event)"
+    (onTaskCheckClick)="onTaskCheckClick($event)"
+  ></app-task>
+</div>

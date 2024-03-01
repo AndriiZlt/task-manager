@@ -4,7 +4,7 @@
       <p style="width: 30px; margin: 0; font-size: 18px">{{ taskIndex + 1 }}</p>
       <h3
         style="width: 500px; margin: 0; font-size: 18px"
-        [style.text-decoration]="checked ? 'line-through' : 'none'"
+        [style.text-decoration]="task.completed ? 'line-through' : 'none'"
       >
         {{ task.description }}
       </h3>
@@ -13,7 +13,8 @@
         class="example-margin"
         color="primary"
         #checkbox
-        (click)="onCheckCLick()"
+        [checked]="task.completed"
+        (change)="this.onTaskCheckClick.emit(this.taskIndex)"
       ></mat-checkbox>
     </div>
   </mat-card>
@@ -28,8 +29,9 @@
       align-items: center;
       justify-content: center;
     "
-    (click)="onXclick()"
+    (click)="this.onTaskDelete.emit(this.taskIndex)"
   >
     <mat-icon>delete</mat-icon>
   </button>
+  <button (click)="onCardClick(taskIndex)">details</button>
 </div>

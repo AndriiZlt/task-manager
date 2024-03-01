@@ -1,54 +1,42 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Injectable,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from 'src/app/app.component';
+import { HomeViewComponent } from '../home-view/home-view.component';
 
 @Component({
   selector: 'app-task-view',
   templateUrl: './task-view.component.html',
   styleUrls: ['./task-view.component.scss'],
 })
+@Injectable()
 export class TaskViewComponent implements OnInit {
-  @Output() onSetLocalStorage: EventEmitter<any> = new EventEmitter<any>();
-  constructor() {}
-  inputValue: string = '';
-  tasks: Task[] = [];
-  selectedTask: number = 0;
-
-  addTask() {
-    this.tasks.push({
-      id: this.tasks.length + 1,
-      description: this.inputValue,
-      completed: false,
-    });
-    this.inputValue = '';
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
-  }
-  clearInput() {
-    this.inputValue = '';
-  }
-  onTaskDelete(selectedIndex: number): void {
-    this.tasks.splice(selectedIndex, 1);
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
-  }
-  onTaskCheck(selectedIndex: number): void {
-    console.log('onTaskCheck');
-    this.tasks[selectedIndex].completed = !this.tasks[selectedIndex].completed;
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
-  }
-
-  getTasks() {
-    let dataFromStrage = localStorage.getItem('tasks');
-    if (
-      dataFromStrage != '' &&
-      dataFromStrage != null &&
-      typeof dataFromStrage != 'undefined'
-    ) {
-      console.log('yes');
-      this.tasks = JSON.parse(dataFromStrage);
-    }
-    console.log(this.tasks);
-  }
-
+  // @Output() onTaskCheckClick: EventEmitter<any> = new EventEmitter<any>();
+  // @Output() onTaskDelete: EventEmitter<any> = new EventEmitter<any>();
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) // @Inject(HomeViewComponent) private data
+  {}
+  taskIndex: number;
+  task: Task;
   ngOnInit(): void {
-    this.getTasks();
+    this.route.queryParams.subscribe((params: any) => {
+      this.taskIndex = Number(params.index);
+      this.task = JSON.parse(localStorage.getItem('tasks'))[this.taskIndex];
+      console.log(this.task);
+      // console.log(this.data);
+    });
+  }
+  onCheckClick() {}
+  onTaskDelete() {}
+  onCardClick() {
+    this.router.navigate(['/']);
   }
 }
