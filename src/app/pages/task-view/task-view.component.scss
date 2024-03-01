@@ -1,0 +1,25 @@
+@import "../../../scss/mixins";
+@import "../../../scss/variables";
+@import "../../../styles.scss";
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.message {
+  text-transform: capitalize;
+}
+
+.add-btn {
+  @include btn;
+  background-color: $cyan-600;
+  color: $gray-200;
+
+  width: 130px;
+}

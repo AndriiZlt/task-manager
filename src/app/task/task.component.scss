@@ -1,0 +1,28 @@
+.card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-transform: capitalize;
+    margin: 0 0 0 10px;
+    :not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+  button {
+    align-self: center;
+    margin-left: 20px;
+  }
+  .example-margin {
+    margin: 0 12px;
+  }
+
+  mat-checkbox::ng-deep .mat-checkbox-inner-container {
+    width: 20px;
+    height: 20px;
+  }
+}
